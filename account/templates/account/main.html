@@ -73,6 +73,13 @@
   <body>
     {% include 'account/navbar.html' %}
     <!-- -- -->
+    <div class="mt-1">
+        {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-danger" role="alert">{{message}}</div>
+        {% endfor %}
+        {% endif %}
+    </div>
 
     <!-- END SCROLL TOP BUTTON -->
     {% block content %} {% endblock %}
