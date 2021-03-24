@@ -97,15 +97,29 @@
             <!-- / header top left -->
             <div class="aa-header-top-right">
               <ul class="aa-head-top-nav-right">
+                {% if user.is_authenticated %}
+                {% if request.user.is_staff %}
+                <li><a href="account.html">Dashboard</a></li>
+                <li class="hidden-xs"><a href="#">All Orders</a></li>
+                <li class="hidden-xs"><a href="{% url 'store' %}">Products</a></li>
+                <li class="hidden-xs"><a href="checkout.html">#####</a></li>
+                <li class="hidden-xs"><a href="{% url 'logout' %}">Logout</a></li>
+                <li>Hello, {{request.user}}</li>
+                {% else %}
                 <li><a href="account.html">My Account</a></li>
-                <li class="hidden-xs"><a href="wishlist.html">Wishlist</a></li>
+                <li class="hidden-xs"><a href="{% url 'store' %}">Products</a></li>
+                <li class="hidden-xs"><a href="wishlist.html">Orders</a></li>
                 <li class="hidden-xs"><a href="cart.html">My Cart</a></li>
                 <li class="hidden-xs"><a href="checkout.html">Checkout</a></li>
-                <li>
-                  <a href="" data-toggle="modal" data-target="#login-modal"
-                    >Login</a
-                  >
-                </li>
+                <li class="hidden-xs"><a href="{% url 'logout' %}">Logout</a></li>
+                <li>Hello, {{request.user}}</li>
+                {% endif %}
+                {% else %}
+                <li><a href="{% url 'store' %}">Products</a></li>
+                <li class="hidden-xs"><a href="wishlist.html">My Cart</a></li>
+                <li class="hidden-xs"><a href="{% url 'login' %}">Login</a></li>
+                <li class="hidden-xs"><a href="{% url 'register' %}">Register</a></li>
+                {% endif %}
               </ul>
             </div>
           </div>
@@ -178,20 +192,14 @@
                 <a
                   class="aa-cartbox-checkout aa-primary-btn"
                   href="checkout.html"
-                  >Checkout</a
-                >
+                  >Checkout</a>
               </div>
             </div>
             <!-- / cart box -->
             <!-- search box -->
             <div class="aa-search-box">
-              <form action="">
-                <input
-                  type="text"
-                  name=""
-                  id=""
-                  placeholder="Search here ex. 'paschal clothing..' "
-                />
+              <form method="get">
+                <input type="text" name="q" placeholder="Search product" value="{{ request.GET.q }}" >
                 <button type="submit">
                   <span class="fa fa-search"></span>
                 </button>
