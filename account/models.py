@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.template.defaultfilters import slugify
 
 
 # Create your models here.
@@ -19,18 +20,36 @@ class Customer(models.Model):
 
 
 class Product(models.Model):
+    product_type = (
+        ('shirt', 'shirt'),
+        ('toy', 'toy'),
+        ('short', 'short'),
+        ('necklace', 'necklace'),
+        ('cap', 'cap'),
+        ('unisex', 'unisex'),
+        ('wristwatches', 'wristwatches'),
+        ('nightgowns', 'nightgowns'),
+    )
     name = models.CharField(max_length=200, null=True, blank=True)
-    price = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True)
-    discount_price = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True)
+    price = models.DecimalField(
+        max_digits=7, decimal_places=2, null=True, blank=True)
+    discount_price = models.DecimalField(
+        max_digits=7, decimal_places=2, null=True, blank=True)
     sold_out = models.BooleanField(default=False)
     description = models.TextField(max_length=200, null=True)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
     img = models.ImageField(blank=True, null=True, default="profile_pic.png")
+    category = models.CharField(
+        max_length=20, null=True, blank=True, choices=product_type)
+    slug = models.SlugField(null=True)
 
-    def __str__(self):
-        return self.name
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        return super().save(*args, **kwargs)
 
-    # We will query our image field with this function, to catch errors when an image is deleted
+      # We will query our image field with this function, to catch errors when an image is deleted
+
     @property
     def imageURL(self):
         try:
@@ -38,6 +57,16 @@ class Product(models.Model):
         except:
             url = ''
         return url
+
+    def availabilty(self):
+        if self.sold_out == False:
+            available = 'In stock'
+        else:
+            available = 'Sold out'
+        return available
+
+    def __str__(self):
+        return self.name
 
 
 class Order(models.Model):
@@ -50,7 +79,8 @@ class Order(models.Model):
     )
     customer = models.ForeignKey(Customer, null=True, on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
-    status = models.CharField(max_length=200, null=True, choices=STATUS, blank=True)
+    status = models.CharField(
+        max_length=200, null=True, choices=STATUS, blank=True)
     completed = models.BooleanField(default=False)
 
     def __str__(self):
