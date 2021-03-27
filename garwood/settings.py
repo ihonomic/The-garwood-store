@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'account',
     'django_filters',
     'bootstrapform',
+    'hitcount',
 ]
 
 MIDDLEWARE = [

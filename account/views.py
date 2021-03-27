@@ -1,6 +1,15 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
+
+#from django.views.generic.list import ListView
+#from django.views.generic.detail import DetailView
+
+from random import randrange
+# initializing a value
+value = 7
+
+
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -13,6 +22,9 @@ from .models import *
 from .decorators import unauthenticated_user, allowed_users, admin_only
 
 from .filters import ProductFilter
+
+#hit counts helps count the numberof times a page was visited
+from hitcount.views import HitCountDetailView
 
 
 
@@ -86,6 +98,38 @@ def ProductStore(request):
     if query:
         products = products.filter(name__icontains=query)
 
-    context = {"products":products}
-    return render(request , 'account/products.html', context)
+    #   Lets randomly generate 'fake' viewed & top-rated products - (Of course this section is incorect but it works for now)
+    #   This changes the viewed & top rated products on-reload
 
+    y = randrange(value)
+    x = randrange(value)
+    recentlyViewed = Product.objects.all()[x:y]
+
+    a = randrange(value)
+    b = randrange(value)
+    topRated = Product.objects.all()[a:b]
+
+    context = {"products": products,
+               'recentlyViewed': recentlyViewed, 'topRated': topRated}
+    return render(request, 'account/products.html', context)
+
+#we need to use a class based view to get the hit count, this was the only
+# method i could get at the time
+class ProductDetailView(HitCountDetailView):
+    model = Product
+    template_name = 'account/product-detail.html'
+    slug_field = "slug"
+    count_hit = True
+
+
+def DetailProduct(request, slug):
+
+
+    product = Product.objects.get(slug=slug)
+
+
+    similarProduct = Product.objects.filter(
+        category__icontains=product.category)
+
+    context = {'product': product, 'similarProduct': similarProduct}
+    return render(request, 'account/product-detail.html', context)
