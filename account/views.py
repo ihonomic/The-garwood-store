@@ -11,6 +11,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
+<<<<<<< HEAD
 
 #from django.views.generic.list import ListView
 #from django.views.generic.detail import DetailView
@@ -19,10 +20,23 @@ from random import randrange
 # initializing a value
 value = 7
 
+=======
+from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
+
+# Import models
+from .models import *
+>>>>>>> 31b47a0d409794c0383713ce53da175585857268
 
 # Create your views here.
+from random import randrange
+
+# initializing a value
+value = 7
 
 
+
+<<<<<<< HEAD
 # hit counts helps count the numberof times a page was visited
 
 
@@ -69,6 +83,15 @@ def loginpage(request):
         else:
             messages.info(request, 'Username or password is incorrect')
 
+=======
+
+def Login(request):
+    context = {}
+    return render(request, 'account/home.html', context)
+
+
+def Register(request):
+>>>>>>> 31b47a0d409794c0383713ce53da175585857268
     context = {}
     return render(request, 'account/login.html', context)
 
@@ -82,12 +105,14 @@ def Home(request):
     return render(request, 'account/home.html')
 
 
+
 def AboutGarwood(request):
     context = {}
     return render(request, 'account/home.html', context)
 
 
 def ProductStore(request):
+<<<<<<< HEAD
     # Querying all the products from the database
     products = Product.objects.all().order_by('-date_created')
     query = request.GET.get("q")  # another example of search/filter query
@@ -101,6 +126,18 @@ def ProductStore(request):
     x = randrange(value)
     recentlyViewed = Product.objects.all()[x:y]
 
+=======
+    #     # Querying all the products from the database
+    products = Product.objects.all()
+
+    #   Lets randomly generate 'fake' viewed & top-rated products - (Of course this section is incorect but it works for now)
+    #   This changes the viewed & top rated products on-reload
+
+    y = randrange(value)
+    x = randrange(value)
+    recentlyViewed = Product.objects.all()[x:y]
+
+>>>>>>> 31b47a0d409794c0383713ce53da175585857268
     a = randrange(value)
     b = randrange(value)
     topRated = Product.objects.all()[a:b]
@@ -109,6 +146,7 @@ def ProductStore(request):
                'recentlyViewed': recentlyViewed, 'topRated': topRated}
     return render(request, 'account/products.html', context)
 
+<<<<<<< HEAD
 # we need to use a class based view to get the hit count, this was the only
 # method i could get at the time
 
@@ -119,6 +157,8 @@ class ProductDetailView(HitCountDetailView):
     slug_field = "slug"
     count_hit = True
 
+=======
+>>>>>>> 31b47a0d409794c0383713ce53da175585857268
 
 def DetailProduct(request, slug):
 

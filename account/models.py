@@ -1,10 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
+<<<<<<< HEAD
 
 
 from hitcount.models import HitCount
 from django.contrib.contenttypes.fields import GenericRelation
+=======
+>>>>>>> 31b47a0d409794c0383713ce53da175585857268
 
 
 # Create your models here.
@@ -47,6 +50,7 @@ class Product(models.Model):
     category = models.CharField(
         max_length=20, null=True, blank=True, choices=product_type)
     slug = models.SlugField(null=True)
+<<<<<<< HEAD
     hit_count_generic = GenericRelation(
         HitCount, object_id_field='object_pk', related_query_name='hit_count_generic_relation')
 
@@ -57,6 +61,14 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+=======
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        return super().save(*args, **kwargs)
+
+>>>>>>> 31b47a0d409794c0383713ce53da175585857268
       # We will query our image field with this function, to catch errors when an image is deleted
 
     @property
@@ -74,6 +86,12 @@ class Product(models.Model):
             available = 'Sold out'
         return available
 
+<<<<<<< HEAD
+=======
+    def __str__(self):
+        return self.name
+
+>>>>>>> 31b47a0d409794c0383713ce53da175585857268
 
 class Order(models.Model):
     # creating drop down menu in status selection

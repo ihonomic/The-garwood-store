@@ -1,9 +1,15 @@
 {% extends 'account/main.html' %}
 <!-- -- -->
+<<<<<<< HEAD
 {% block title %} Garwood ! Store {% endblock%} {% load hitcount_tags %}
 <!-- -- -->
 {% block content %} {% load static %}
 
+=======
+{% block title %} Garwood ! Store {% endblock%}
+<!-- -- -->
+{% block content %} {% load static %}
+>>>>>>> 31b47a0d409794c0383713ce53da175585857268
 <!-- --- -->
 
 <!-- catg header banner section -->
@@ -57,8 +63,12 @@
                   <h3>{{product.name}}</h3>
                   <div class="aa-price-block">
                     <span class="aa-product-view-price"
+<<<<<<< HEAD
                       >N {{product.price}} | views: {% get_hit_count for product
                       %}</span
+=======
+                      >N {{product.price}}</span
+>>>>>>> 31b47a0d409794c0383713ce53da175585857268
                     >
                     <p class="aa-product-avilability">
                       Avilability: <span>{{product.availabilty}}</span>

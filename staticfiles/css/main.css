@@ -1,0 +1,15 @@
+
+
+.box-element {
+  box-shadow: hsl(0, 0%, 80%) 0 0 16px;
+  background-color: #fff;
+  border-radius: 4px;
+  padding: 40px;
+}
+
+.thumbnail {
+  width: 100%;
+  height: 50%;
+  box-shadow: -1px -3px 5px -2px
+    rgba(rgb(214, 141, 141), rgb(7, 20, 7), rgb(17, 17, 49), 0.5);
+}
