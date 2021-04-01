@@ -1,0 +1,158 @@
+{% extends 'account/main.html' %}
+<!-- -- -->
+{% load static %}
+<!-- ---- -->
+{% block title %} GarWood Account {% endblock%}
+
+<!-- -- -->
+{% block content %}
+
+<style>
+  .hidden {
+    display: none !important;
+  }
+</style>
+
+<!-- catg header banner section -->
+<section id="aa-catg-head-banner">
+  <img src="{% static 'images/background-kid.jpg' %}" alt="fashion img" />
+  <div class="aa-catg-head-banner-area">
+    <div class="container">
+      <div class="aa-catg-head-banner-content">
+        <h2>Account</h2>
+        <ol class="breadcrumb">
+          <li><a href="{% url 'Home' %}">Home</a></li>
+          <li class="active">Account</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- / catg header banner section -->
+
+<!-- Cart view section -->
+<section id="aa-myaccount">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="aa-myaccount-area">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="aa-myaccount-login">
+                <button
+                  id="Login-button"
+                  class="btn btn-sm btn-outline-secondary btn-block"
+                >
+                  Login
+                </button>
+                <h4></h4>
+
+                <div id="login-wrapper" class="hidden">
+                  <form
+                    action="{% url 'login' %}"
+                    method="POST"
+                    class="aa-login-form"
+                  >
+                    {% csrf_token %}
+                    <label for="">Username<span>*</span></label>
+                    <input
+                      type="text"
+                      placeholder="Username "
+                      name="username"
+                      required
+                    />
+                    <label for="">Password<span>*</span></label>
+                    <input
+                      type="password"
+                      placeholder="Password"
+                      name="password"
+                      required
+                    />
+                    <button type="submit" class="aa-browse-btn">Login</button>
+                    <label class="rememberme" for="rememberme"
+                      ><input type="checkbox" id="rememberme" /> Remember me
+                    </label>
+                    <p class="aa-lost-password">
+                      <a href="#">Lost your password?</a>
+                    </p>
+                  </form>
+                </div>
+
+                <!-- --- -->
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="aa-myaccount-register">
+                <button
+                  id="Register-button"
+                  class="btn btn-sm btn-outline-secondary btn-block"
+                >
+                  Register
+                </button>
+                <h4></h4>
+
+                <div id="register-wrapper" class="hidden">
+                  <form
+                    action="{% url 'register' %}"
+                    method="POST"
+                    class="aa-login-form"
+                  >
+                    {% csrf_token %}
+                    <label for="">Username<span>*</span></label>
+                    <input
+                      type="text"
+                      placeholder="Username"
+                      name="username"
+                      required
+                    />
+                    <!-- <label for="">Email<span>*</span></label>
+                    <input
+                      type="email"
+                      placeholder="Email"
+                      name="email"
+                      required
+                    /> -->
+                    <label for="">Password<span>*</span></label>
+                    <input
+                      type="password"
+                      placeholder="********"
+                      name="password1"
+                      required
+                    />
+                    <label for="">Repeat Password<span>*</span></label>
+                    <input
+                      type="password"
+                      placeholder="*******"
+                      name="password2"
+                      required
+                    />
+                    <button type="submit" class="aa-browse-btn">
+                      Register
+                    </button>
+                  </form>
+                </div>
+                <!-- ---- -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- / Cart view section -->
+
+<script>
+  const showLogin = document.getElementById("Login-button");
+  const showRegister = document.getElementById("Register-button");
+
+  showLogin.addEventListener("click", function (e) {
+    document.getElementById("login-wrapper").classList.remove("hidden");
+  });
+
+  showRegister.addEventListener("click", function (e) {
+    document.getElementById("register-wrapper").classList.remove("hidden");
+  });
+</script>
+
+{% endblock %}

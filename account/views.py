@@ -1,75 +1,50 @@
+""" CLASS BASE VIEWS IMPORTS """
+from django.contrib.auth.views import LoginView
+from django.urls import reverse_lazy
+from django.views.generic import TemplateView, FormView
 from hitcount.views import HitCountDetailView
+
+
 from .filters import ProductFilter
 from .decorators import unauthenticated_user, allowed_users, admin_only
+
 from .models import *
 from .forms import CreateUserFrom
 from django.contrib.auth.models import Group
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
-<<<<<<< HEAD
-
-#from django.views.generic.list import ListView
-#from django.views.generic.detail import DetailView
 
 from random import randrange
-# initializing a value
-value = 7
-
-=======
-from django.views.generic.list import ListView
-from django.views.generic.detail import DetailView
-
-# Import models
-from .models import *
->>>>>>> 31b47a0d409794c0383713ce53da175585857268
-
-# Create your views here.
-from random import randrange
-
-# initializing a value
-value = 7
-
-
-
-<<<<<<< HEAD
-# hit counts helps count the numberof times a page was visited
 
 
 # Create your views here.
 
-
-@unauthenticated_user
-def register(request):
-
-    form = CreateUserFrom()
-    if request.method == 'POST':
-        form = CreateUserFrom(request.POST)
-        if form.is_valid():
-            user = form.save()
-            username = form.cleaned_data.get('username')
-
-            group = Group.objects.get(name='customer')
-            user.groups.add(group)
-            Customer.objects.create(
-                user=user,
-                full_name=user.username,
-                email=user.email,
-            )
-
-            messages.success(request, 'Account was created ' + username)
-            return redirect('login')
-
-    context = {'form': form}
-    return render(request, 'account/register.html', context)
+""" initializing a random value"""
+value = 7
 
 
-@unauthenticated_user
-def loginpage(request):
+class RegisterView(FormView):
+    # template_name = 'register.html'
+    form_class = UserCreationForm
+    success_url = reverse_lazy('Home')
+
+    def form_valid(self, form):
+        user = form.save()
+        # Login the user
+        if user is not None:
+            login(self.request, user)
+            messages.success(self.request, 'Registration Success')
+        return super(RegisterView, self).form_valid(form)
+
+
+def Login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -78,22 +53,12 @@ def loginpage(request):
 
         if user is not None:
             login(request, user)
-            messages.info(request, 'Welcome to Garwood...')
+            messages.info(
+                request, f"Welcome back {request.user}, Happy shopping...")
             return redirect('store')
         else:
             messages.info(request, 'Username or password is incorrect')
-
-=======
-
-def Login(request):
-    context = {}
-    return render(request, 'account/home.html', context)
-
-
-def Register(request):
->>>>>>> 31b47a0d409794c0383713ce53da175585857268
-    context = {}
-    return render(request, 'account/login.html', context)
+        return render(request, 'account/main.html')
 
 
 def logoutUser(request):
@@ -101,43 +66,45 @@ def logoutUser(request):
     return redirect('store')
 
 
-def Home(request):
-    return render(request, 'account/home.html')
+class Home(TemplateView):
+    template_name = 'account/home.html'
 
 
+class AccountPage(TemplateView):
+    template_name = 'account/account.html'
 
-def AboutGarwood(request):
-    context = {}
-    return render(request, 'account/home.html', context)
+
+class WishListPage(TemplateView):
+    template_name = 'account/wishlist.html'
+
+
+class Cart(TemplateView):
+    template_name = 'account/cart.html'
+
+
+class Checkout(TemplateView):
+    template_name = 'account/checkout.html'
+
+
+class ContactUs(TemplateView):
+    template_name = 'account/contact.html'
+
+
+class Blog(TemplateView):
+    template_name = 'account/blog.html'
 
 
 def ProductStore(request):
-<<<<<<< HEAD
-    # Querying all the products from the database
+    """  Querying all the products from the database """
+
     products = Product.objects.all().order_by('-date_created')
-    query = request.GET.get("q")  # another example of search/filter query
-    if query:
-        products = products.filter(name__icontains=query)
 
-    #   Lets randomly generate 'fake' viewed & top-rated products - (Of course this section is incorect but it works for now)
-    #   This changes the viewed & top rated products on-reload
-
+    """ Lets randomly generate 'fake' viewed & top-rated products - (Of course this section is incorect but it works for now)
+    This changes the viewed & top rated products on-reload """
     y = randrange(value)
     x = randrange(value)
     recentlyViewed = Product.objects.all()[x:y]
 
-=======
-    #     # Querying all the products from the database
-    products = Product.objects.all()
-
-    #   Lets randomly generate 'fake' viewed & top-rated products - (Of course this section is incorect but it works for now)
-    #   This changes the viewed & top rated products on-reload
-
-    y = randrange(value)
-    x = randrange(value)
-    recentlyViewed = Product.objects.all()[x:y]
-
->>>>>>> 31b47a0d409794c0383713ce53da175585857268
     a = randrange(value)
     b = randrange(value)
     topRated = Product.objects.all()[a:b]
@@ -146,26 +113,23 @@ def ProductStore(request):
                'recentlyViewed': recentlyViewed, 'topRated': topRated}
     return render(request, 'account/products.html', context)
 
-<<<<<<< HEAD
-# we need to use a class based view to get the hit count, this was the only
-# method i could get at the time
-
 
 class ProductDetailView(HitCountDetailView):
+    """  CBV to get the hit count, as it was the only method wisdom could get at the time - WISDOM"""
+
     model = Product
     template_name = 'account/product-detail.html'
+    context_object_name = 'product'
     slug_field = "slug"
     count_hit = True
 
-=======
->>>>>>> 31b47a0d409794c0383713ce53da175585857268
+    def get_context_data(self, *args,  **kwargs):
+        """ Modified wisdom hitcount idea to get similar products on the same page - IHON"""
 
-def DetailProduct(request, slug):
+        slug = self.kwargs['slug']
+        product = Product.objects.get(slug=slug)
 
-    product = Product.objects.get(slug=slug)
-
-    similarProduct = Product.objects.filter(
-        category__icontains=product.category)
-
-    context = {'product': product, 'similarProduct': similarProduct}
-    return render(request, 'account/product-detail.html', context)
+        context = super(ProductDetailView, self).get_context_data()
+        context['similarProduct'] = Product.objects.filter(
+            category__icontains=product.category)
+        return context

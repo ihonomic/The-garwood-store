@@ -1,12 +1,5 @@
 {% load static %}
 
-<!-- wpf loader Two -->
-<!-- <div id="wpf-loader-two">
-  <div class="wpf-loader-two-inner">
-    <span>Loading</span>
-  </div>
-</div> -->
-<!-- / wpf loader Two -->
 <!-- SCROLL TOP BUTTON -->
 <a class="scrollToTop" href="#"><i class="fa fa-chevron-up"></i></a>
 <!-- END SCROLL TOP BUTTON -->
@@ -97,49 +90,37 @@
             <!-- / header top left -->
             <div class="aa-header-top-right">
               <ul class="aa-head-top-nav-right">
-<<<<<<< HEAD
-                {% if user.is_authenticated %} {% if request.user.is_staff %}
-                <li><a href="account.html">Dashboard</a></li>
-                <li class="hidden-xs"><a href="#">All Orders</a></li>
-                <li class="hidden-xs">
-                  <a href="{% url 'store' %}">Products</a>
+                {% if request.user.is_authenticated %}
+                <li>
+                  Hello,<span style="color: tomato">
+                    {{request.user | title}}</span
+                  >
                 </li>
-                <li class="hidden-xs"><a href="checkout.html">#####</a></li>
-                <li class="hidden-xs">
-                  <a href="{% url 'logout' %}">Logout</a>
-                </li>
-                <li>Hello, {{request.user}}</li>
                 {% else %}
-                <li><a href="account.html">My Account</a></li>
-                <li class="hidden-xs">
-                  <a href="{% url 'store' %}">Products</a>
-                </li>
-                <li class="hidden-xs"><a href="wishlist.html">Orders</a></li>
-                <li class="hidden-xs"><a href="cart.html">My Cart</a></li>
-                <li class="hidden-xs"><a href="checkout.html">Checkout</a></li>
-                <li class="hidden-xs">
-                  <a href="{% url 'logout' %}">Logout</a>
-                </li>
-                <li>Hello, {{request.user}}</li>
-                {% endif %} {% else %}
-                <li><a href="{% url 'store' %}">Products</a></li>
-                <li class="hidden-xs"><a href="wishlist.html">My Cart</a></li>
-                <li class="hidden-xs"><a href="{% url 'login' %}">Login</a></li>
-                <li class="hidden-xs">
-                  <a href="{% url 'register' %}">Register</a>
-                </li>
+                <li><a href="{% url 'account' %}">My Account</a></li>
                 {% endif %}
-=======
-                <li><a href="account.html">My Account</a></li>
-                <li class="hidden-xs"><a href="wishlist.html">Wishlist</a></li>
-                <li class="hidden-xs"><a href="cart.html">My Cart</a></li>
-                <li class="hidden-xs"><a href="checkout.html">Checkout</a></li>
+                <li class="hidden-xs">
+                  <a href="{% url 'wishlist' %}">Wishlist</a>
+                </li>
+                <li class="hidden-xs">
+                  <a href="{% url 'cart' %}">My Cart</a>
+                </li>
+                <li class="hidden-xs">
+                  <a href="{% url 'checkout' %}">Checkout</a>
+                </li>
+                {% if request.user.is_authenticated %}
+                <li class="hidden-xs">
+                  <a href="{% url 'logout' %}"
+                    >Logout <span class="caret"></span>
+                  </a>
+                </li>
+                {% else %}
                 <li>
                   <a href="" data-toggle="modal" data-target="#login-modal"
                     >Login</a
                   >
                 </li>
->>>>>>> 31b47a0d409794c0383713ce53da175585857268
+                {% endif %}
               </ul>
             </div>
           </div>
@@ -219,21 +200,12 @@
             <!-- / cart box -->
             <!-- search box -->
             <div class="aa-search-box">
-<<<<<<< HEAD
-              <form method="get">
-                <input
-                  type="text"
-                  name="q"
-                  placeholder="Search product"
-                  value="{{ request.GET.q }}"
-=======
               <form action="">
                 <input
                   type="text"
                   name=""
                   id=""
                   placeholder="Search product... "
->>>>>>> 31b47a0d409794c0383713ce53da175585857268
                 />
                 <button type="submit">
                   <span class="fa fa-search"></span>
@@ -271,9 +243,9 @@
         <div class="navbar-collapse collapse">
           <!-- Left nav -->
           <ul class="nav navbar-nav">
-            <li><a href="index.html">Home</a></li>
+            <li><a href="{% url 'Home' %}">Home</a></li>
             <li>
-              <a href="#">Men <span class="caret"></span></a>
+              <a href="#">Male <span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="#">Casual</a></li>
                 <li><a href="#">Sports</a></li>
@@ -294,7 +266,7 @@
               </ul>
             </li>
             <li>
-              <a href="#">Women <span class="caret"></span></a>
+              <a href="#">Female <span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="#">Kurta & Kurti</a></li>
                 <li><a href="#">Trousers</a></li>
@@ -361,7 +333,7 @@
                 </li>
               </ul>
             </li>
-            <li><a href="#">Sports</a></li>
+            <li><a href="#">Kids Sport</a></li>
             <li>
               <a href="#">Digital <span class="caret"></span></a>
               <ul class="dropdown-menu">
@@ -372,22 +344,15 @@
                 <li><a href="#">Accesories</a></li>
               </ul>
             </li>
-            <li><a href="#">Furniture</a></li>
+            <li><a href="#">Toys</a></li>
             <li>
-              <a href="blog-archive.html">Blog <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="blog-archive.html">Blog Style 1</a></li>
-                <li><a href="blog-archive-2.html">Blog Style 2</a></li>
-                <li><a href="blog-single.html">Blog Single</a></li>
-              </ul>
+              <a href="{% url 'blog' %}">Blog </a>
             </li>
-            <li><a href="contact.html">Contact</a></li>
+            <li><a href="{% url 'contact-us' %}">Contact</a></li>
             <li>
               <a href="#">Pages <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="product.html">Shop Page</a></li>
-                <li><a href="product-detail.html">Shop Single</a></li>
-                <li><a href="404.html">404 Page</a></li>
+                <li><a href="{% url 'store' %}">Shop</a></li>
               </ul>
             </li>
           </ul>

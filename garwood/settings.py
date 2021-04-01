@@ -90,6 +90,7 @@ DATABASES = {
     }
 }
 
+LOGIN_URL = 'Home'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -136,12 +137,9 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'account/static')
 ]
 MEDIA_ROOT = os.path.join(BASE_DIR, 'account/static/img')
-<<<<<<< HEAD
-=======
 
 # When deployed online, this code automatically changes debug to False and give us a free SSL certificate
 if os.getcwd() == '/app':
     # DEBUG = False
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
     SECURE_SSL_REDIRECT = True
->>>>>>> 31b47a0d409794c0383713ce53da175585857268

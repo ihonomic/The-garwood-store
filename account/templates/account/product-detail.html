@@ -1,15 +1,11 @@
 {% extends 'account/main.html' %}
 <!-- -- -->
-<<<<<<< HEAD
-{% block title %} Garwood ! Store {% endblock%} {% load hitcount_tags %}
+{% block title %} Garwood ! Store {% endblock%}
+<!-- -- -->
+{% load hitcount_tags %}
 <!-- -- -->
 {% block content %} {% load static %}
 
-=======
-{% block title %} Garwood ! Store {% endblock%}
-<!-- -- -->
-{% block content %} {% load static %}
->>>>>>> 31b47a0d409794c0383713ce53da175585857268
 <!-- --- -->
 
 <!-- catg header banner section -->
@@ -63,13 +59,9 @@
                   <h3>{{product.name}}</h3>
                   <div class="aa-price-block">
                     <span class="aa-product-view-price"
-<<<<<<< HEAD
-                      >N {{product.price}} | views: {% get_hit_count for product
-                      %}</span
-=======
-                      >N {{product.price}}</span
->>>>>>> 31b47a0d409794c0383713ce53da175585857268
-                    >
+                      >N {{product.price}} | views: {% get_hit_count for
+                      product%}
+                    </span>
                     <p class="aa-product-avilability">
                       Avilability: <span>{{product.availabilty}}</span>
                     </p>
@@ -117,7 +109,6 @@
           <div class="aa-product-details-bottom">
             <ul class="nav nav-tabs" id="myTab2">
               <li><a href="#description" data-toggle="tab">Description</a></li>
-              <li><a href="#review" data-toggle="tab">Reviews</a></li>
             </ul>
 
             <!-- Tab panes -->
@@ -145,118 +136,6 @@
                   {{product.description}}, {{product.description}}
                   {{product.description}}{{product.description}}{{product.description}}{{product.description}}{{product.description}}
                 </p>
-              </div>
-              <div class="tab-pane fade" id="review">
-                <div class="aa-product-review-area">
-                  <h4>2 Reviews for {{product.name}}</h4>
-                  <ul class="aa-review-nav">
-                    <li>
-                      <div class="media">
-                        <div class="media-left">
-                          <a href="#">
-                            <img
-                              class="media-object"
-                              src="img/testimonial-img-3.jpg"
-                              alt="girl image"
-                            />
-                          </a>
-                        </div>
-                        <div class="media-body">
-                          <h4 class="media-heading">
-                            <strong>Marla Jobs</strong> -
-                            <span>March 26, 2016</span>
-                          </h4>
-                          <div class="aa-product-rating">
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star-o"></span>
-                          </div>
-                          <p>
-                            {{product.description}}, {{product.description}}
-                            elit.
-                          </p>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="media">
-                        <div class="media-left">
-                          <a href="#">
-                            <img
-                              class="media-object"
-                              src="img/testimonial-img-3.jpg"
-                              alt="girl image"
-                            />
-                          </a>
-                        </div>
-                        <div class="media-body">
-                          <h4 class="media-heading">
-                            <strong>Marla Jobs</strong> -
-                            <span>March 26, 2016</span>
-                          </h4>
-                          <div class="aa-product-rating">
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star-o"></span>
-                          </div>
-                          <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing
-                            elit.
-                          </p>
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
-                  <h4>Add a review</h4>
-                  <div class="aa-your-rating">
-                    <p>Your Rating</p>
-                    <a href="#"><span class="fa fa-star-o"></span></a>
-                    <a href="#"><span class="fa fa-star-o"></span></a>
-                    <a href="#"><span class="fa fa-star-o"></span></a>
-                    <a href="#"><span class="fa fa-star-o"></span></a>
-                    <a href="#"><span class="fa fa-star-o"></span></a>
-                  </div>
-                  <!-- review form -->
-                  <form action="" class="aa-review-form">
-                    <div class="form-group">
-                      <label for="message">Your Review</label>
-                      <textarea
-                        class="form-control"
-                        rows="3"
-                        id="message"
-                      ></textarea>
-                    </div>
-                    <div class="form-group">
-                      <label for="name">Name</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="name"
-                        placeholder="Name"
-                      />
-                    </div>
-                    <div class="form-group">
-                      <label for="email">Email</label>
-                      <input
-                        type="email"
-                        class="form-control"
-                        id="email"
-                        placeholder="example@gmail.com"
-                      />
-                    </div>
-
-                    <button
-                      type="submit"
-                      class="btn btn-default aa-review-submit"
-                    >
-                      Submit
-                    </button>
-                  </form>
-                </div>
               </div>
             </div>
           </div>
